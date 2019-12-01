@@ -5,6 +5,8 @@ This package code is based on https://github.com/barryvdh/laravel-debugbar
 
 Plugin for **laravel-debugbar** that provide **button** to open **vscode**.
 
+Just move mouse pointer to text that contains file path, then the button will appear. Let's click on it :D
+
 ![Screenshot 1](screenshots/laravel-debugbar-vscode.screnshot-1.png)
 ![Screenshot 2](screenshots/laravel-debugbar-vscode.screnshot-2.png)
 
