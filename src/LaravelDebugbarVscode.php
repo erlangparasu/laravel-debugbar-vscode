@@ -91,6 +91,10 @@ class LaravelDebugbarVscode extends ServiceProvider
             return;
         }
 
+        if (strpos($content, '</body>') !== false) {
+            return;
+        }
+
         $pos = strripos($content, '</body>');
         if (false !== $pos) {
             $content = substr($content, 0, $pos) . $renderedContent . substr($content, $pos);
