@@ -1,10 +1,12 @@
-## Laravel debugbar vscode opener
-
-Plugin for laravel-debugbar that provide button to open vscode.
-
-This package code is based on https://github.com/barryvdh/laravel-debugbar
+# laravel-debugbar-vscode
 
 ## Warning: still on development
+This package code is based on https://github.com/barryvdh/laravel-debugbar
+
+Plugin for **laravel-debugbar** that provide **button** to open **vscode**.
+
+![Screenshot 1](screenshots/laravel-debugbar-vscode.screnshot-1.png)
+![Screenshot 2](screenshots/laravel-debugbar-vscode.screnshot-2.png)
 
 ## Installation
 
