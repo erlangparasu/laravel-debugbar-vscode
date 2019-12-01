@@ -1,14 +1,22 @@
 # laravel-debugbar-vscode
 
 ## Warning: still on development
-This package code is based on https://github.com/barryvdh/laravel-debugbar
+This package code is based on https://github.com/barryvdh/laravel-debugbar &copy;
 
-Plugin for **laravel-debugbar** that provide **button** to open **vscode**.
+## Context
+Tired of having to search for and open the files manually?
+
+## About
+Plugin **laravel-debugbar** that provide **button** to open **vscode**
+
+## How to use
 
 Just move mouse pointer to text that contains file path, then the button will appear. Let's click on it :D
 
 ![Screenshot 1](screenshots/laravel-debugbar-vscode.screnshot-1.png)
 ![Screenshot 2](screenshots/laravel-debugbar-vscode.screnshot-2.png)
+
+Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
 
 ## Installation
 
@@ -17,8 +25,6 @@ Require this package with composer. It is recommended to only require the packag
 ```shell
 composer require erlangparasu/laravel-debugbar-vscode --dev
 ```
-
-Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
 
 ### Laravel 5.5+:
 
