@@ -1,7 +1,3 @@
-<!--
-    phpdebugbar plugin openeditor
-    Created by: Erlang Parasu 2019
--->
 <style>
     .phpdebugbar-plugin-openeditorbutton {
         font-size: 12px !important;
