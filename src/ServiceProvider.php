@@ -4,7 +4,6 @@ namespace ErlangParasu\DebugbarVscode;
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Http\Kernel;
-use DebugBar\DataFormatter\DataFormatter;
 use ErlangParasu\DebugbarVscode\Middleware\InjectDebugbarVscode;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider

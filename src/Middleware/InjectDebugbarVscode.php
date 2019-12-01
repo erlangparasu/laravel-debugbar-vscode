@@ -50,6 +50,7 @@ class InjectDebugbarVscode
 
         // Modify the response to add the Debugbar
         $this->debugbarvscode->modifyResponse($request, $response);
+
         return $response;
     }
 }

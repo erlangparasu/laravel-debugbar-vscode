@@ -3,7 +3,6 @@
 namespace ErlangParasu\DebugbarVscode;
 
 use Exception;
-
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,8 +31,9 @@ class LaravelDebugbarVscode extends ServiceProvider
     public function __construct($app = null)
     {
         if (!$app) {
-            $app = app();   //Fallback when $app is not given
+            $app = app(); // Fallback when $app is not given
         }
+
         $this->app = $app;
     }
 
@@ -92,6 +92,8 @@ class LaravelDebugbarVscode extends ServiceProvider
         }
 
         if (strpos($content, '</body>') !== false) {
+            // OK
+        } else {
             return;
         }
 
