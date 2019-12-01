@@ -2,12 +2,11 @@
 
 use Exception;
 
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\Str;
+use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 
 class LaravelDebugbarVscode extends ServiceProvider
 {
@@ -85,6 +84,10 @@ class LaravelDebugbarVscode extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/Resources', 'debugbarvscode');
         $renderer = view('debugbarvscode::vscode_debugbar_plugin');
         $renderedContent = $renderer->render();
+
+        if (strpos($content, 'PhpDebugBar.') !== false) {
+            return;
+        }
 
         $pos = strripos($content, '</body>');
         if (false !== $pos) {

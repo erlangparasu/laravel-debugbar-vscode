@@ -2,14 +2,10 @@
 
 namespace ErlangParasu\DebugbarVscode\Middleware;
 
-use Error;
 use Closure;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use ErlangParasu\DebugbarVscode\LaravelDebugbarVscode;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 class InjectDebugbarVscode
 {

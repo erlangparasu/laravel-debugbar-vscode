@@ -2,11 +2,8 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Session\SessionManager;
 use DebugBar\DataFormatter\DataFormatter;
-use DebugBar\DataFormatter\DataFormatterInterface;
 use ErlangParasu\DebugbarVscode\Middleware\InjectDebugbarVscode;
-use ErlangParasu\DebugbarVscode\Middleware\DebugbarVscodeEnabled;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

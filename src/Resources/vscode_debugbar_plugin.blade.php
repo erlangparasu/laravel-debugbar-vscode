@@ -25,101 +25,126 @@
     }
 </style>
 <script>
-    $(function onDocumentReady() {
-        function getEditorName() {
-            return "{{ (isset($phpdebugbar_editor) ? $phpdebugbar_editor : 'vscode') }}";
+    var _phpDebugBarPluginVscodeIsLoaded = false;
+
+    var _funPhpDebugBarPluginVscodeInit = function () {
+        if ($) {
+            //
+        } else {
+            return;
         }
 
-        function getBasePath() {
-            return "{{ str_replace('\\', '/', base_path()) }}";
+        if ($('.phpdebugbar').length) {
+            //
+        } else {
+            return;
         }
 
-        function isPhp(str) {
-            return str.indexOf('.php') != -1;
+        if (_phpDebugBarPluginVscodeIsLoaded) {
+            return;
         }
 
-        function isController(str) {
-            return str.indexOf('.php:') != -1;
-        }
+        $(function onDocumentReady() {
+            function getEditorName() {
+                return "{{ (isset($phpdebugbar_editor) ? $phpdebugbar_editor : 'vscode') }}";
+            }
 
-        function isBlade(str) {
-            return str.indexOf('.blade.php') != -1;
-        }
+            function getBasePath() {
+                return "{{ str_replace('\\', '/', base_path()) }}";
+            }
 
-        function getLink(str) {
-            var result = '';
+            function isPhp(str) {
+                return str.indexOf('.php') != -1;
+            }
 
-            // TODO: Link to other editor
-            result += getEditorName();
-            result += '://file/';
-            result += getBasePath();
+            function isController(str) {
+                return str.indexOf('.php:') != -1;
+            }
 
-            if (isBlade(str)) {
-                var iRes = str.indexOf('resources');
-                if (iRes != -1) {
-                    str = str.substring(iRes - 1);
-                    var iViews = str.indexOf('views');
-                    if (iViews != -1) {
-                        var iEnd = str.indexOf(')', iViews);
-                        if (iEnd != -1) {
-                            str = str.substring(0, iEnd);
-                            result += str;
+            function isBlade(str) {
+                return str.indexOf('.blade.php') != -1;
+            }
+
+            function getLink(str) {
+                var result = '';
+
+                // TODO: Link to other editor
+                result += getEditorName();
+                result += '://file/';
+                result += getBasePath();
+
+                if (isBlade(str)) {
+                    var iRes = str.indexOf('resources');
+                    if (iRes != -1) {
+                        str = str.substring(iRes - 1);
+                        var iViews = str.indexOf('views');
+                        if (iViews != -1) {
+                            var iEnd = str.indexOf(')', iViews);
+                            if (iEnd != -1) {
+                                str = str.substring(0, iEnd);
+                                result += str;
+                            }
                         }
                     }
+                } else if (isController(str)) {
+                    var iRes = str.indexOf('.php:');
+                    if (iRes != -1) {
+                        var iLastDash = str.lastIndexOf('-');
+                        result += str.substring(0, iLastDash);
+                    }
                 }
-            } else if (isController(str)) {
-                var iRes = str.indexOf('.php:');
-                if (iRes != -1) {
-                    var iLastDash = str.lastIndexOf('-');
-                    result += str.substring(0, iLastDash);
-                }
+
+                return result;
             }
 
-            return result;
-        }
+            var funOnHoverIn = function (e) {
+                e.stopPropagation();
 
-        var funOnHoverIn = function (e) {
-            e.stopPropagation();
-
-            var str = $(this).html();
-            if (isPhp(str) || isBlade(str) || isController(str)) {
-                // OK
-            } else {
-                return;
-            }
-
-            if (str.indexOf('vscode_debugbar_plugin') == -1) {
-                // OK
-            } else {
-                return;
-            }
-
-            if (isBlade(str)) {
-                var oldHtml = $(this).parent().html();
-                var strNewLink = '';
-                if (oldHtml.indexOf('phpdebugbar-plugin-openeditorbutton') == -1) {
-                    strNewLink = '<a class="phpdebugbar-plugin-openeditorbutton" onclick="phpdebugbar_plugin_openEditorClicked(event, this);" data-link="' + getLink(str) + '">' +  '&#9998;' +  '</a>';
+                var str = $(this).html();
+                if (isPhp(str) || isBlade(str) || isController(str)) {
+                    // OK
+                } else {
+                    return;
                 }
-                $(strNewLink).insertAfter($(this));
-            } else if (isController(str)) {
-                var oldHtml = $(this).html();
-                var strNewLink = '';
-                if (oldHtml.indexOf('phpdebugbar-plugin-openeditorbutton') == -1) {
-                    strNewLink = '<a class="phpdebugbar-plugin-openeditorbutton" onclick="phpdebugbar_plugin_openEditorClicked(event, this);" data-link="' + getLink(str) + '">' +  '&#9998;' +  '</a>';
+
+                if (str.indexOf('vscode_debugbar_plugin') == -1) {
+                    // OK
+                } else {
+                    return;
                 }
-                $(strNewLink).appendTo($(this));
-            }
-        };
 
-        var funOnHoverOut = function (e) {
-            e.stopPropagation();
-        };
+                if (isBlade(str)) {
+                    var oldHtml = $(this).parent().html();
+                    var strNewLink = '';
+                    if (oldHtml.indexOf('phpdebugbar-plugin-openeditorbutton') == -1) {
+                        strNewLink = '<a class="phpdebugbar-plugin-openeditorbutton" onclick="phpdebugbar_plugin_openEditorClicked(event, this);" data-link="' + getLink(str) + '">' +  '&#9998;' +  '</a>';
+                    }
+                    $(strNewLink).insertAfter($(this));
+                } else if (isController(str)) {
+                    var oldHtml = $(this).html();
+                    var strNewLink = '';
+                    if (oldHtml.indexOf('phpdebugbar-plugin-openeditorbutton') == -1) {
+                        strNewLink = '<a class="phpdebugbar-plugin-openeditorbutton" onclick="phpdebugbar_plugin_openEditorClicked(event, this);" data-link="' + getLink(str) + '">' +  '&#9998;' +  '</a>';
+                    }
+                    $(strNewLink).appendTo($(this));
+                }
+            };
 
-        setTimeout(function () {
-            $('.phpdebugbar span.phpdebugbar-widgets-name').hover(funOnHoverIn, funOnHoverOut);
-            $('.phpdebugbar dd.phpdebugbar-widgets-value').hover(funOnHoverIn, funOnHoverOut);
-        }, 5);
-    });
+            var funOnHoverOut = function (e) {
+                e.stopPropagation();
+            };
+
+            setTimeout(function () {
+                $('.phpdebugbar span.phpdebugbar-widgets-name').hover(funOnHoverIn, funOnHoverOut);
+                $('.phpdebugbar dd.phpdebugbar-widgets-value').hover(funOnHoverIn, funOnHoverOut);
+            }, 5);
+        });
+
+        _phpDebugBarPluginVscodeIsLoaded = true;
+        clearInterval(_phpDebugBarPluginVscodeInterval);
+    }
+
+    var _phpDebugBarPluginVscodeInterval = setInterval(_funPhpDebugBarPluginVscodeInit, 3000);
 
     function phpdebugbar_plugin_openEditorClicked(ev, el) {
         window.location.href = $(el).data('link');
