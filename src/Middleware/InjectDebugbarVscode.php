@@ -48,7 +48,7 @@ class InjectDebugbarVscode
 
         $response = $next($request);
 
-        // Modify the response to add the Debugbar
+        // Modify the response to add the buttons
         $this->debugbarvscode->modifyResponse($request, $response);
 
         return $response;

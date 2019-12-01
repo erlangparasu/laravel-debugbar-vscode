@@ -1,6 +1,6 @@
 {
     "name": "erlangparasu/laravel-debugbar-vscode",
-    "description": "PHP debugbar vscode opener",
+    "description": "laravel-debugbar plugin that provide buttons to open vscode",
     "keywords": ["laravel", "debugbar", "vscode"],
     "license": "MIT",
     "authors": [

@@ -1,5 +1,9 @@
 <style>
-    .phpdebugbar-plugin-openeditorbutton {
+    .phpdebugbar-widgets-list-item {
+        align-items: baseline !important;
+    }
+
+    .phpdebugbar-plugin-vscodebutton {
         font-size: 12px !important;
         display: inline-block !important;
         color: #000 !important;
@@ -15,33 +19,37 @@
         margin-bottom: 0px !important;
         cursor: pointer !important;
     }
-
-    .phpdebugbar-widgets-list-item {
-        align-items: baseline !important;
-    }
 </style>
-<script>
-    var _phpDebugBarPluginVscodeIsLoaded = false;
 
-    var _funPhpDebugBarPluginVscodeInit = function () {
+<script>
+    var phpdebugbar_plugin_vscode_mIsLoaded = false;
+
+    function phpdebugbar_plugin_onBtnVscodeClicked(ev, el) {
+        window.location.href = $(el).data('link');
+        event.stopPropagation();
+    }
+
+    var phpdebugbar_plugin_vscode_onInit = function () {
         if ($) {
-            //
+            // OK
         } else {
+            // jQuery not yet available
             return;
         }
 
         if ($('.phpdebugbar').length) {
-            //
+            // OK
         } else {
+            // laravel-debugbar not yet available
             return;
         }
 
-        if (_phpDebugBarPluginVscodeIsLoaded) {
+        if (phpdebugbar_plugin_vscode_mIsLoaded) {
             return;
         }
 
         $(function onDocumentReady() {
-            function getEditorName() {
+            function getSchemeName() {
                 return "{{ (isset($phpdebugbar_editor) ? $phpdebugbar_editor : 'vscode') }}";
             }
 
@@ -64,8 +72,7 @@
             function getLink(str) {
                 var result = '';
 
-                // TODO: Link to other editor
-                result += getEditorName();
+                result += getSchemeName();
                 result += '://file/';
                 result += getBasePath();
 
@@ -100,27 +107,31 @@
                 if (isPhp(str) || isBlade(str) || isController(str)) {
                     // OK
                 } else {
+                    // Unknown format
                     return;
                 }
 
                 if (str.indexOf('vscode_debugbar_plugin') == -1) {
                     // OK
                 } else {
+                    // Don't add button to this plugin view path
                     return;
                 }
+
+                var strFullPath = getLink(str);
 
                 if (isBlade(str)) {
                     var oldHtml = $(this).parent().html();
                     var strNewLink = '';
-                    if (oldHtml.indexOf('phpdebugbar-plugin-openeditorbutton') == -1) {
-                        strNewLink = '<a class="phpdebugbar-plugin-openeditorbutton" onclick="phpdebugbar_plugin_openEditorClicked(event, this);" data-link="' + getLink(str) + '">' +  '&#9998;' +  '</a>';
+                    if (oldHtml.indexOf('phpdebugbar-plugin-vscodebutton') == -1) {
+                        strNewLink = '<a class="phpdebugbar-plugin-vscodebutton" onclick="phpdebugbar_plugin_onBtnVscodeClicked(event, this);" data-link="' + strFullPath + '" title="' + strFullPath + '">' +  '&#9998;' +  '</a>';
                     }
                     $(strNewLink).insertAfter($(this));
                 } else if (isController(str)) {
                     var oldHtml = $(this).html();
                     var strNewLink = '';
-                    if (oldHtml.indexOf('phpdebugbar-plugin-openeditorbutton') == -1) {
-                        strNewLink = '<a class="phpdebugbar-plugin-openeditorbutton" onclick="phpdebugbar_plugin_openEditorClicked(event, this);" data-link="' + getLink(str) + '">' +  '&#9998;' +  '</a>';
+                    if (oldHtml.indexOf('phpdebugbar-plugin-vscodebutton') == -1) {
+                        strNewLink = '<a class="phpdebugbar-plugin-vscodebutton" onclick="phpdebugbar_plugin_onBtnVscodeClicked(event, this);" data-link="' + strFullPath + '" title="' + strFullPath + '">' +  '&#9998;' +  '</a>';
                     }
                     $(strNewLink).appendTo($(this));
                 }
@@ -130,20 +141,13 @@
                 e.stopPropagation();
             };
 
-            setTimeout(function () {
-                $('.phpdebugbar span.phpdebugbar-widgets-name').hover(funOnHoverIn, funOnHoverOut);
-                $('.phpdebugbar dd.phpdebugbar-widgets-value').hover(funOnHoverIn, funOnHoverOut);
-            }, 5);
+            $('.phpdebugbar span.phpdebugbar-widgets-name').hover(funOnHoverIn, funOnHoverOut);
+            $('.phpdebugbar dd.phpdebugbar-widgets-value').hover(funOnHoverIn, funOnHoverOut);
         });
 
-        _phpDebugBarPluginVscodeIsLoaded = true;
-        clearInterval(_phpDebugBarPluginVscodeInterval);
+        phpdebugbar_plugin_vscode_mIsLoaded = true;
+        clearInterval(phpdebugbar_plugin_vscode_mInterval);
     }
 
-    var _phpDebugBarPluginVscodeInterval = setInterval(_funPhpDebugBarPluginVscodeInit, 3000);
-
-    function phpdebugbar_plugin_openEditorClicked(ev, el) {
-        window.location.href = $(el).data('link');
-        event.stopPropagation();
-    }
+    var phpdebugbar_plugin_vscode_mInterval = setInterval(phpdebugbar_plugin_vscode_onInit, 3000);
 </script>
