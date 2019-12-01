@@ -65,7 +65,10 @@ class LaravelDebugbarVscode extends ServiceProvider
     public function modifyResponse(Request $request, Response $response)
     {
         try {
-            $this->injectDebugbarVscode($response);
+            $header = $request->header('Accept');
+            if (strpos($header, 'html') !== false) {
+                $this->injectDebugbarVscode($response);
+            }
         } catch (\Exception $e) {
             $this->app['log']->error('DebugbarVscode exception: ' . $e->getMessage());
         }
