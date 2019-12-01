@@ -1,4 +1,6 @@
-<?php namespace ErlangParasu\DebugbarVscode;
+<?php
+
+namespace ErlangParasu\DebugbarVscode;
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Http\Kernel;
@@ -20,7 +22,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      * @return void
      */
     public function register()
-    {     
+    {
         $this->app->singleton(LaravelDebugbarVscode::class, function () {
                 $debugbarvscode = new LaravelDebugbarVscode($this->app);
                 return $debugbarvscode;
@@ -36,7 +38,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      * @return void
      */
     public function boot()
-    {     
+    {
         $this->registerMiddleware(InjectDebugbarVscode::class);
     }
 
@@ -49,7 +51,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         return $this->app['router'];
     }
-  
+
     /**
      * Register the DebugbarVscode Middleware
      *

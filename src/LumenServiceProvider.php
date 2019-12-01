@@ -1,4 +1,6 @@
-<?php namespace ErlangParasu\DebugbarVscode;
+<?php
+
+namespace ErlangParasu\DebugbarVscode;
 
 use Laravel\Lumen\Application;
 
@@ -16,7 +18,7 @@ class LumenServiceProvider extends ServiceProvider
     {
         return $this->app->router;
     }
- 
+
     /**
      * Register the DebugbarVscode Middleware
      *

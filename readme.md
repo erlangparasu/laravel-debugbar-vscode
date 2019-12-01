@@ -40,6 +40,6 @@ For Lumen, register a different Provider in `bootstrap/app.php`:
 
 ```php
 if (env('APP_DEBUG')) {
- $app->register(ErlangParasu\DebugbarVscode\LumenServiceProvider::class);
+    $app->register(ErlangParasu\DebugbarVscode\LumenServiceProvider::class);
 }
 ```

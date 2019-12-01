@@ -1,4 +1,6 @@
-<?php namespace ErlangParasu\DebugbarVscode;
+<?php
+
+namespace ErlangParasu\DebugbarVscode;
 
 use Exception;
 
