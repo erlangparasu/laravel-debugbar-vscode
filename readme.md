@@ -1,7 +1,10 @@
 # laravel-debugbar-vscode
 
-This package code is based on https://github.com/barryvdh/laravel-debugbar
+This package code is based on https://github.com/barryvdh/laravel-debugbar/tree/2.4
+
 ## Warning: still on development
+
+This package is compatible with **barryvdh/laravel-debugbar:~2.4.0**
 
 Plugin **laravel-debugbar** that provide **button** to open **vscode**
 
