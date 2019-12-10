@@ -18,7 +18,7 @@ Move mouse pointer to text that contains file path, then the button will appear.
 Require this package with composer. It is recommended to only require the package for development.
 
 ```shell
-composer require erlangparasu/laravel-debugbar-vscode:~0.2.0 --dev
+composer require erlangparasu/laravel-debugbar-vscode:~2.4 --dev
 ```
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
