@@ -50,7 +50,7 @@
 
         $(function onDocumentReady() {
             function getSchemeName() {
-                return "{{ (isset($phpdebugbar_editor) ? $phpdebugbar_editor : 'vscode') }}";
+                return "{{ 'vscode' }}";
             }
 
             function getBasePath() {

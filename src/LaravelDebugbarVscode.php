@@ -46,12 +46,6 @@ class LaravelDebugbarVscode extends ServiceProvider
             return;
         }
 
-        /** @var \ErlangParasu\DebugbarVscode\LaravelDebugbarVscode $debugbarvscode */
-        $debugbarvscode = $this;
-
-        /** @var Application $app */
-        $app = $this->app;
-
         $this->booted = true;
     }
 
