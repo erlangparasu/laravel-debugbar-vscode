@@ -49,12 +49,8 @@
         }
 
         $(function onDocumentReady() {
-            function getSchemeName() {
-                return "{{ (isset($phpdebugbar_editor) ? $phpdebugbar_editor : 'vscode') }}";
-            }
-
             function getBasePath() {
-                return "{{ str_replace('\\', '/', base_path()) }}";
+                return "{{ base_path() }}";
             }
 
             function isPhp(str) {
@@ -70,11 +66,7 @@
             }
 
             function getLink(str) {
-                var result = '';
-
-                result += getSchemeName();
-                result += '://file/';
-                result += getBasePath();
+                var result += 'vscode://file/';
 
                 if (isBlade(str)) {
                     var iRes = str.indexOf('resources');
@@ -85,15 +77,27 @@
                             var iEnd = str.indexOf(')', iViews);
                             if (iEnd != -1) {
                                 str = str.substring(0, iEnd);
-                                result += str;
+
+                                result += encodeURIComponent(str);
                             }
                         }
                     }
                 } else if (isController(str)) {
                     var iRes = str.indexOf('.php:');
                     if (iRes != -1) {
-                        var iLastDash = str.lastIndexOf('-');
-                        result += str.substring(0, iLastDash);
+                        // Sample:
+                        // f.php:A-Z
+                        // 012345678
+
+                        var iLastDash = str.lastIndexOf('-'); // 7
+                        str = str.substring(0, iLastDash); // "f.php:A"
+                        var iLastColon = str.lastIndexOf(':'); // 5
+                        var onlyFilePath = str.substring(0, iLastColon); // "f.php"
+                        var onlyLineNumber = str.substring(iLastColon + 1, iLastDash); // "A"
+
+                        result += encodeURIComponent(onlyFilePath);
+                        result += ':';
+                        result += onlyLineNumber;
                     }
                 }
 
