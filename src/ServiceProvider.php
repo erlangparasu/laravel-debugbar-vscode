@@ -2,9 +2,9 @@
 
 namespace ErlangParasu\DebugbarVscode;
 
-use Illuminate\Routing\Router;
-use Illuminate\Contracts\Http\Kernel;
 use ErlangParasu\DebugbarVscode\Middleware\InjectDebugbarVscode;
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Routing\Router;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -22,7 +22,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(LaravelDebugbarVscode::class, function () {
+        $this->app->singleton(
+            LaravelDebugbarVscode::class,
+            function () {
                 $debugbarvscode = new LaravelDebugbarVscode($this->app);
                 return $debugbarvscode;
             }

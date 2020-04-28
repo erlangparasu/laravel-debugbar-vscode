@@ -3,11 +3,11 @@
 namespace ErlangParasu\DebugbarVscode;
 
 use Exception;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Contracts\Foundation\Application;
 
 class LaravelDebugbarVscode extends ServiceProvider
 {
@@ -80,7 +80,7 @@ class LaravelDebugbarVscode extends ServiceProvider
     {
         $content = $response->getContent();
 
-        $this->loadViewsFrom(__DIR__.'/Resources', 'debugbarvscode');
+        $this->loadViewsFrom(__DIR__ . '/Resources', 'debugbarvscode');
         $renderer = view('debugbarvscode::vscode_debugbar_plugin');
         $renderedContent = $renderer->render();
 

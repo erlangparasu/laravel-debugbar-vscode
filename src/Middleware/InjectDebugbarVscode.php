@@ -3,9 +3,9 @@
 namespace ErlangParasu\DebugbarVscode\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Container\Container;
 use ErlangParasu\DebugbarVscode\LaravelDebugbarVscode;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Http\Request;
 
 class InjectDebugbarVscode
 {

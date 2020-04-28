@@ -20,8 +20,11 @@
         cursor: pointer !important;
     }
 </style>
-
+<?php $isLinux = DIRECTORY_SEPARATOR === '/'; ?>
 <script>
+    var isLinux = {{ $isLinux ? 'true' : 'false' }};
+    var extraSlash = (isLinux) ? '/' : '';
+
     var phpdebugbar_plugin_vscode_mIsLoaded = false;
 
     function phpdebugbar_plugin_onBtnVscodeClicked(ev, el) {
@@ -54,7 +57,7 @@
             }
 
             function getBasePath() {
-                return "{{ str_replace('\\', '/', base_path()) }}";
+                return "{{ str_replace('\\', '/', base_path()) }}" + extraSlash;
             }
 
             function isPhp(str) {
@@ -79,7 +82,11 @@
                 if (isBlade(str)) {
                     var iRes = str.indexOf('resources');
                     if (iRes != -1) {
-                        str = str.substring(iRes - 1);
+                        if (!isLinux) {
+                            // (\resources...)
+                            iRes--; // to remove '\'
+                        }
+                        str = str.substring(iRes);
                         var iViews = str.indexOf('views');
                         if (iViews != -1) {
                             var iEnd = str.indexOf(')', iViews);
