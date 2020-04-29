@@ -66,6 +66,15 @@
             }
         }
 
+        if ($('.phpdebugbar-datasets-switcher').length) {
+            if (!$('.phpdebugbar-datasets-switcher').hasClass('click-listened')) {
+                $('.phpdebugbar-datasets-switcher').addClass('click-listened');
+                $('.phpdebugbar-datasets-switcher').change(function () {
+                    $('.phpdebugbar').removeClass('already-binded');
+                });
+            }
+        }
+
         $(function onDocumentReady() {
             function getSchemeName() {
                 return "{{ 'vscode' }}";
