@@ -25,7 +25,7 @@
     var isLinux = {{ $isLinux ? 'true' : 'false' }};
     var extraSlash = (isLinux) ? '/' : '';
 
-    var phpdebugbar_plugin_vscode_mIsLoaded = false;
+    // var phpdebugbar_plugin_vscode_mIsLoaded = false;
 
     function phpdebugbar_plugin_onBtnVscodeClicked(ev, el) {
         window.location.href = $(el).data('link');
@@ -40,6 +40,10 @@
             return;
         }
 
+        if ($('.phpdebugbar-openhandler-overlay').is(":visible")) {
+            return;
+        }
+
         if ($('.phpdebugbar').length) {
             // OK
         } else {
@@ -47,8 +51,19 @@
             return;
         }
 
-        if (phpdebugbar_plugin_vscode_mIsLoaded) {
+        if ($('.phpdebugbar').hasClass('already-binded')) {
             return;
+        }
+
+        $('.phpdebugbar').addClass('already-binded');
+
+        if ($('.phpdebugbar-open-btn').length) {
+            if (!$('.phpdebugbar-open-btn').hasClass('click-listened')) {
+                $('.phpdebugbar-open-btn').addClass('click-listened');
+                $('.phpdebugbar-open-btn').click(function () {
+                    $('.phpdebugbar').removeClass('already-binded');
+                });
+            }
         }
 
         $(function onDocumentReady() {
@@ -152,9 +167,9 @@
             $('.phpdebugbar dd.phpdebugbar-widgets-value').hover(funOnHoverIn, funOnHoverOut);
         });
 
-        phpdebugbar_plugin_vscode_mIsLoaded = true;
-        clearInterval(phpdebugbar_plugin_vscode_mInterval);
+        // phpdebugbar_plugin_vscode_mIsLoaded = true;
+        // clearInterval(phpdebugbar_plugin_vscode_mInterval);
     }
 
-    var phpdebugbar_plugin_vscode_mInterval = setInterval(phpdebugbar_plugin_vscode_onInit, 3000);
+    var phpdebugbar_plugin_vscode_mInterval = setInterval(phpdebugbar_plugin_vscode_onInit, 2000);
 </script>
