@@ -103,6 +103,7 @@
                 result += '://file/';
                 result += getBasePath();
 
+                str = str.replace(/^[\u00a0\.\ 0-9]*/,'');
                 if (isBlade(str)) {
                     var iRes = str.indexOf('resources');
                     if (iRes != -1) {
@@ -121,11 +122,9 @@
                         }
                     }
                 } else if (isController(str)) {
-                    var iRes = str.indexOf('.php:');
-                    if (iRes != -1) {
-                        var iLastDash = str.lastIndexOf('-');
-                        result += str.substring(0, iLastDash);
-                    }
+
+                        str = str.replace(/-[0-9]*$/,'');
+                        result += str
                 }
 
                 return result;
@@ -134,7 +133,7 @@
             var funOnHoverIn = function (e) {
                 e.stopPropagation();
 
-                var str = $(this).html();
+                var str = $(this).text();
                 if (isPhp(str) || isBlade(str) || isController(str)) {
                     // OK
                 } else {
@@ -174,6 +173,8 @@
 
             $('.phpdebugbar span.phpdebugbar-widgets-name').hover(funOnHoverIn, funOnHoverOut);
             $('.phpdebugbar dd.phpdebugbar-widgets-value').hover(funOnHoverIn, funOnHoverOut);
+            $('.phpdebugbar li.phpdebugbar-widgets-table-list-item').hover(funOnHoverIn, funOnHoverOut);
+            $('.phpdebugbar span.phpdebugbar-widgets-stmt-id').hover(funOnHoverIn, funOnHoverOut);
         });
 
         // phpdebugbar_plugin_vscode_mIsLoaded = true;
